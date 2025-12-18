@@ -18,7 +18,7 @@ Este proyecto es una aplicación web Java Enterprise CE (Jakarta EE) proyecto de
 1.  **Dashboard:** Vista general con KPIs (Total de productos, Stock total).
 2.  **Gestión de Inventario:** CRUD completo de Productos y Categorías.
 3.  **Movimientos:** Registro de Entradas y Salidas con validación de stock insuficiente.
-4.  **Reportes:** Exportación de listado valorizado a PDF y Excel.
+4.  **Reportes:** Exportación de datos de consulta a PDF y Excel.
 5.  **Seguridad:** Control de acceso mediante Login (Roles: ADMIN/USER).
 
 ## ⚙️ Configuración e Instalación
@@ -39,3 +39,4 @@ Este proyecto es una aplicación web Java Enterprise CE (Jakarta EE) proyecto de
 
 ## 👤 Autor
 Desarrollado como entregable final para el módulo de Desarrollo Web Java    .
+## Proyecto Finalizado
