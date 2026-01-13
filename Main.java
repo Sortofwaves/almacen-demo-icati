@@ -1,8 +1,8 @@
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import model.Rol;      // <--- Asegúrate de que esta línea no esté en rojo
-import model.Usuario;  // <--- Asegúrate de que esta línea no esté en rojo
+import model.Rol;      
+import model.Usuario;  
 import org.omnifaces.util.Faces;
 public class Main {
     public static void main(String[] args) {
@@ -39,7 +39,7 @@ public class Main {
         } finally {
             em.close();
             emf.close();
-            // Al cerrarse aquí, como usas 'create-drop', Hibernate BORRARÁ las tablas.
+            // Al cerrarse aquí, como se usa 'create-drop', Hibernate BORRARÁ las tablas.
         }
     }
 }
