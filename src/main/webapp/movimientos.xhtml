@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Movimientos de Inventario</title>
+    <style>
+        body { background-color: #f4f4f9; font-family: sans-serif; }
+        .card { margin: 20px; padding: 20px; }
+        .entrada { color: green; font-weight: bold; }
+        .salida { color: red; font-weight: bold; }
+    </style>
+</h:head>
+
+<h:body>
+    <h:form id="formMovimientos">
+
+        <p:menubar>
+            <p:menuitem value="Inicio" icon="pi pi-home" url="dashboard.xhtml"/>
+            <p:submenu label="Inventario" icon="pi pi-box">
+                <p:menuitem value="Productos" icon="pi pi-list" url="productos.xhtml"/>
+                <p:menuitem value="Categorías" icon="pi pi-tags" url="categorias.xhtml"/>
+                <p:menuitem value="Movimientos" icon="pi pi-sort-alt" url="movimientos.xhtml"/>
+            </p:submenu>
+            <f:facet name="options">
+                <p:commandButton value="Cerrar Sesión" action="#{loginController.cerrarSesion}" icon="pi pi-power-off" styleClass="ui-button-danger" />
+            </f:facet>
+        </p:menubar>
+
+        <p:growl id="mensajes" showDetail="true" />
+
+        <p:panel header="Registrar Entrada o Salida" styleClass="card">
+
+            <h:panelGrid columns="4" cellpadding="5">
+
+                <p:outputLabel value="Producto:" for="menuProducto"/>
+                <p:selectOneMenu id="menuProducto"
+                                 value="#{movimientoController.movimiento.producto}"
+                                 converter="omnifaces.SelectItemsConverter"
+                                 required="true"
+                                 label="Producto"
+                                 style="width: 200px;">
+                    <f:selectItem itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItems value="#{movimientoController.listaProductos}" var="p"
+                                   itemLabel="#{p.nombre} (Stock: #{p.cantidad})" itemValue="#{p}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Tipo:" for="menuTipo"/>
+                <p:selectOneMenu id="menuTipo" value="#{movimientoController.movimiento.tipo}" required="true" style="width: 150px;">
+                    <f:selectItem itemLabel="Entrada (+)" itemValue="ENTRADA"/>
+                    <f:selectItem itemLabel="Salida (-)" itemValue="SALIDA"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Cantidad:" for="inputCantidad"/>
+
+                <p:inputNumber id="inputCantidad"
+                               value="#{movimientoController.movimiento.cantidad}"
+                               minValue="1"
+                               decimalPlaces="0"
+                               showButtons="true"
+                               modifyValueOnWheel="false"
+                               required="true"
+                               style="width: 100px;"/>
+            </h:panelGrid>
+
+            <f:facet name="footer">
+                <p:commandButton value="Registrar"
+                                 actionListener="#{movimientoController.registrar}"
+                                 update="tablaMovimientos formMovimientos:mensajes"
+                                 icon="pi pi-check"
+                                 styleClass="ui-button-primary"/>
+            </f:facet>
+        </p:panel>
+        <p:panel header="Historial de Movimientos" styleClass="card">
+            <p:dataTable id="tablaMovimientos" value="#{movimientoController.listaMovimientos}" var="mov" paginator="true" rows="10">
+
+                <p:column headerText="Fecha">
+                    <h:outputText value="#{mov.fecha}" />
+                </p:column>
+
+                <p:column headerText="Producto">
+                    <h:outputText value="#{mov.producto.nombre}" />
+                </p:column>
+
+                <p:column headerText="Tipo">
+                    <h:outputText value="#{mov.tipo}" styleClass="#{mov.tipo == 'ENTRADA' ? 'entrada' : 'salida'}" />
+                </p:column>
+
+                <p:column headerText="Cantidad">
+                    <h:outputText value="#{mov.cantidad}" />
+                </p:column>
+
+            </p:dataTable>
+        </p:panel>
+
+    </h:form>
+</h:body>
+</html>

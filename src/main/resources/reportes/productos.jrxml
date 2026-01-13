@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="ReporteProductos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+              uuid="550e8400-e29b-41d4-a716-446655440000">
+
+    <queryString>
+        <![CDATA[
+        SELECT
+            p."ID" as id,
+            p.nombre,
+            p.descripcion,
+            p.precio_unitario as precio,
+            p.cantidad as stock,
+            c.nombre as nombre_categoria
+        FROM productos p
+        LEFT JOIN categorias c ON p.categoria_id = c.id
+        ORDER BY p.nombre ASC
+        ]]>
+    </queryString>
+
+    <field name="id" class="java.lang.Long"/>
+    <field name="nombre" class="java.lang.String"/>
+    <field name="descripcion" class="java.lang.String"/>
+    <field name="precio" class="java.math.BigDecimal"/>
+    <field name="stock" class="java.lang.Integer"/>
+    <field name="nombre_categoria" class="java.lang.String"/>
+
+    <background><band splitType="Stretch"/></background>
+
+    <title>
+        <band height="60" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="40" uuid="a1b2c3d4-e5f6-7890-1234-56789abcdef0"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="22" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Catálogo de Productos]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <rectangle>
+                <reportElement x="0" y="0" width="555" height="30" backcolor="#D4F0FC" uuid="b2c3d4e5-f678-9012-3456-789abcdef012"/>
+            </rectangle>
+            <staticText>
+                <reportElement x="0" y="0" width="150" height="30" uuid="c3d4e5f6-7890-1234-5678-9abcdef01234"/>
+                <box leftPadding="5"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[NOMBRE]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="0" width="150" height="30" uuid="d4e5f678-9012-3456-7890-abcdef012345"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[CATEGORÍA]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="300" y="0" width="100" height="30" uuid="e5f67890-1234-5678-90ab-cdef01234567"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[PRECIO ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="400" y="0" width="80" height="30" uuid="f6789012-3456-7890-abcd-ef0123456789"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[STOCK]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="25" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="150" height="20" uuid="12345678-90ab-cdef-1234-567890abcdef"/>
+                <box leftPadding="5"/>
+                <textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="150" y="0" width="150" height="20" uuid="23456789-0abc-def1-2345-67890abcdef1"/>
+                <textFieldExpression><![CDATA[$F{nombre_categoria} == null ? "Sin Categ." : $F{nombre_categoria}]]></textFieldExpression>
+            </textField>
+            <textField pattern="¤ #,##0.00">
+                <reportElement x="300" y="0" width="100" height="20" uuid="34567890-abcd-ef12-3456-7890abcdef12"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="400" y="0" width="80" height="20" uuid="45678901-bcde-f123-4567-890abcdef123"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

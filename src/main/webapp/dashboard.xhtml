@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Inicio - Dashboard</title>
+    <style>
+        body { background-color: #f4f4f9; font-family: sans-serif; margin: 0; }
+
+        /* Estilos manuales para simular la tarjeta de PrimeFaces */
+        .mi-tarjeta {
+            background: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 2px 1px -1px rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+            padding: 1.5rem;
+            text-align: center;
+            min-width: 250px;
+            flex: 1;
+        }
+
+        .dashboard-grid {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .kpi-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+
+        .titulo-tarjeta {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 15px;
+            display: block;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h:form>
+        <p:menubar>
+            <p:menuitem value="Inicio" icon="pi pi-home" url="dashboard.xhtml"/>
+
+            <p:submenu label="Inventario" icon="pi pi-box">
+                <p:menuitem value="Productos" icon="pi pi-list" url="productos.xhtml"/>
+                <p:menuitem value="Categorías" icon="pi pi-tags" url="categorias.xhtml"/>
+                <p:menuitem value="Movimientos" icon="pi pi-sort-alt" url="movimientos.xhtml"/>
+            </p:submenu>
+
+            <p:menuitem value="Reportes" icon="pi pi-file-pdf" url="reportes.xhtml"/>
+
+            <f:facet name="options">
+                <p:commandButton value="Cerrar Sesión" action="#{loginController.cerrarSesion}" icon="pi pi-power-off" styleClass="ui-button-danger" />
+            </f:facet>
+        </p:menubar>
+
+        <h2 style="text-align:center; color:#444;">Resumen del Sistema</h2>
+
+        <div class="dashboard-grid">
+
+            <div class="mi-tarjeta">
+                <span class="titulo-tarjeta">Productos</span>
+                <div>
+                    <i class="pi pi-tags" style="font-size: 2.5rem; color: #3498db;"></i>
+                </div>
+                <div class="kpi-number">#{dashboardController.totalProductos}</div>
+                <div style="color:#888;">Tipos registrados</div>
+            </div>
+
+            <div class="mi-tarjeta">
+                <span class="titulo-tarjeta">Stock Total</span>
+                <div>
+                    <i class="pi pi-box" style="font-size: 2.5rem; color: #e67e22;"></i>
+                </div>
+                <div class="kpi-number">#{dashboardController.totalStock}</div>
+                <div style="color:#888;">Unidades totales</div>
+            </div>
+
+            <div class="mi-tarjeta">
+                <span class="titulo-tarjeta">Acciones</span>
+                <div>
+                    <i class="pi pi-bolt" style="font-size: 2.5rem; color: #f1c40f;"></i>
+                </div>
+                <div style="margin-top: 20px;">
+                    <p:button value="Nuevo Movimiento" outcome="movimientos.xhtml" styleClass="ui-button-success" icon="pi pi-arrow-right"/>
+                </div>
+                <div style="color:#888; margin-top:10px;">Registrar entrada/salida</div>
+            </div>
+
+        </div>
+
+    </h:form>
+</h:body>
+</html>

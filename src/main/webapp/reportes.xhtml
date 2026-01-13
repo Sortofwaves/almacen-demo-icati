@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+    <title>Reportes del Sistema</title>
+    <style>
+        body { background-color: #f4f4f9; font-family: sans-serif; margin: 0; }
+
+        /* Estilos para las tarjetas de botones */
+        .card-container {
+            width: 60%;
+            margin: auto;
+            margin-top: 50px;
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 1px -1px rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+        }
+
+        .boton-reporte {
+            width: 100%;
+            max-width: 350px;
+            height: 50px;
+            font-size: 1.1em !important;
+            margin-bottom: 10px;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h:form>
+        <p:menubar>
+            <p:menuitem value="Inicio" icon="pi pi-home" url="dashboard.xhtml"/>
+
+            <p:submenu label="Inventario" icon="pi pi-box">
+                <p:menuitem value="Productos" icon="pi pi-list" url="productos.xhtml"/>
+                <p:menuitem value="Categorías" icon="pi pi-tags" url="categorias.xhtml"/>
+                <p:menuitem value="Movimientos" icon="pi pi-sort-alt" url="movimientos.xhtml"/>
+            </p:submenu>
+
+            <p:menuitem value="Reportes" icon="pi pi-file-pdf" url="reportes.xhtml" style="font-weight:bold;"/>
+
+            <f:facet name="options">
+                <p:commandButton value="Cerrar Sesión" action="#{loginController.cerrarSesion}" icon="pi pi-power-off" styleClass="ui-button-danger" />
+            </f:facet>
+        </p:menubar>
+
+        <div class="card-container" style="width: 80%; max-width: 900px;">
+            <h2 style="text-align: center; color: #444;">Centro de Descargas</h2>
+            <p:divider />
+
+            <p:panelGrid columns="3" layout="grid"
+                         columnClasses="ui-grid-col-6, ui-grid-col-1, ui-grid-col-5"
+                         styleClass="ui-panelgrid-blank ui-fluid">
+
+                <h:panelGroup>
+                    <h3 style="text-align:center; color:#d32f2f;"><i class="pi pi-file-pdf"></i> Formato PDF</h3>
+
+                    <p:commandButton value="Inventario General" icon="pi pi-box"
+                                     styleClass="ui-button-outlined ui-button-danger" style="margin-bottom:10px"
+                                     action="#{reporteController.generarPdfInventario}" ajax="false" />
+
+                    <p:commandButton value="Movimientos" icon="pi pi-history"
+                                     styleClass="ui-button-outlined ui-button-danger" style="margin-bottom:10px"
+                                     action="#{reporteController.generarPdfMovimientos}" ajax="false" />
+
+                    <p:commandButton value="Catálogo Productos" icon="pi pi-list"
+                                     styleClass="ui-button-outlined ui-button-danger" style="margin-bottom:10px"
+                                     action="#{reporteController.generarPdfProductos}" ajax="false" />
+
+                    <p:commandButton value="Categorías" icon="pi pi-tags"
+                                     styleClass="ui-button-outlined ui-button-danger"
+                                     action="#{reporteController.generarPdfCategorias}" ajax="false" />
+                </h:panelGroup>
+
+                <h:outputText value="" />
+
+                <h:panelGroup>
+                    <h3 style="text-align:center; color:#2e7d32;"><i class="pi pi-file-excel"></i> Formato Excel</h3>
+
+                    <p:commandButton value="Inventario Excel" icon="pi pi-table"
+                                     styleClass="ui-button-success" style="margin-bottom:10px"
+                                     action="#{reporteController.generarXlsInventario}" ajax="false" />
+
+                    <p:commandButton value="Movimientos Excel" icon="pi pi-table"
+                                     styleClass="ui-button-success" style="margin-bottom:10px"
+                                     action="#{reporteController.generarXlsMovimientos}" ajax="false" />
+
+                    <p:commandButton value="Productos Excel" icon="pi pi-table"
+                                     styleClass="ui-button-success" style="margin-bottom:10px"
+                                     action="#{reporteController.generarXlsProductos}" ajax="false" />
+
+                    <p:commandButton value="Categorías Excel" icon="pi pi-table"
+                                     styleClass="ui-button-success"
+                                     action="#{reporteController.generarXlsCategorias}" ajax="false" />
+                </h:panelGroup>
+
+            </p:panelGrid>
+        </div>
+    </h:form>
+</h:body>
+</html>
